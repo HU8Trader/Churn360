@@ -46,6 +46,11 @@
 |---|---|---|---|
 | `TenureBucket` | gold fact_churn | 0-12 / 13-24 / 25-36 / 37-48 / 49-60 / 60+ | Tenure banding |
 | `TenureBucketOrder` | gold fact_churn | 1..6 | Sorts tenure buckets |
+| `ScoreBand` | gold fact_churn | 0-39 / 40-59 / 60-69 / 70-84 / 85+ | ChurnScore banding |
+| `ScoreBandOrder` | gold fact_churn | 1..5 | Sorts score bands |
+| `addon_count` | gold dim_customer | 0..4 (premium add-ons only) | Add-on adoption depth |
+
+Chart-level drag-and-drop specification: see `PRD_CHARTS.md`.
 
 ---
 
