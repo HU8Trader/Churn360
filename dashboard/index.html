@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Customer 360 · Churn Intelligence Dashboard</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+</head>
+<body>
+
+  <div class="wrap">
+
+    <!-- ============ HEADER ============ -->
+    <header class="app-header">
+      <div class="brand">
+        <div class="brand-logo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2 L20 6 V12 C20 17 16.5 21 12 22 C7.5 21 4 17 4 12 V6 Z"/>
+            <path d="M8 12.5 L10.5 15 L16 9.5"/>
+          </svg>
+        </div>
+        <div>
+          <h1>Customer 360 &nbsp;·&nbsp; Churn Intelligence</h1>
+          <p>Telco Customer Analytics &nbsp;|&nbsp; Medallion Architecture · 7,043 customers</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button class="icon-btn" id="btnHome" title="Home" aria-label="Home">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/><path d="M9 21v-6h6v6"/></svg>
+        </button>
+        <button class="icon-btn" id="btnBookmark" title="Bookmark current view" aria-label="Bookmark">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12v18l-6-4-6 4Z"/></svg>
+        </button>
+        <button class="icon-btn" id="btnQA" title="Ask questions about your data" aria-label="Q&A">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H9l-5 4Z"/><circle cx="9.5" cy="10.5" r="0.6" fill="currentColor"/><circle cx="12.5" cy="10.5" r="0.6" fill="currentColor"/><circle cx="15.5" cy="10.5" r="0.6" fill="currentColor"/></svg>
+        </button>
+        <button class="theme-toggle" id="btnTheme" title="Toggle theme (dark / light)" aria-label="Toggle theme">
+          <svg id="iconSun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+          <svg id="iconMoon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- ============ PAGE NAV ============ -->
+    <nav class="page-nav">
+      <button class="page-btn" data-page="overview">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+        Overview
+      </button>
+      <button class="page-btn" data-page="churn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg>
+        Churn Analysis
+      </button>
+      <button class="page-btn" data-page="services">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M9 3v18M15 3v18M3 9h18M3 15h18"/></svg>
+        Services
+      </button>
+      <button class="page-btn" data-page="revenue">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 6.5c0-1.5-2-2.5-5-2.5s-5 1-5 2.5S8 9 12 9s5 1 5 2.5S14 14 12 14s-5-1-5-2.5"/><path d="M7 17c1.5 1.5 3 2 5 2s3.5-.5 5-2"/></svg>
+        Revenue &amp; CLTV
+      </button>
+      <button class="page-btn" data-page="geography">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a7 7 0 0 0-4 12.7V16h8v-1.3A7 7 0 0 0 12 2Z"/><path d="M9 19h6M10 22h4"/><circle cx="12" cy="9" r="2.2"/></svg>
+        Geography
+      </button>
+      <div class="nav-spacer"></div>
+      <span style="font-size:11px;color:var(--muted);font-weight:700;letter-spacing:1px;text-transform:uppercase;">Live · SQL Gold Layer</span>
+    </nav>
+
+    <!-- ============ SLICERS ============ -->
+    <div class="slicer-bar">
+      <div class="slicer">
+        <div class="slicer-label">Gender</div>
+        <div class="chip-group" id="slicer-gender"></div>
+      </div>
+      <div class="slicer">
+        <div class="slicer-label">Contract</div>
+        <div class="chip-group" id="slicer-contract"></div>
+      </div>
+      <div class="slicer">
+        <div class="slicer-label">Internet Service</div>
+        <div class="chip-group" id="slicer-internet"></div>
+      </div>
+      <div class="slicer">
+        <div class="slicer-label">Payment Method</div>
+        <div class="chip-group" id="slicer-pay"></div>
+      </div>
+      <div class="slicer">
+        <div class="slicer-label">Tenure (months)</div>
+        <div class="chip-group" id="slicer-tenure"></div>
+      </div>
+      <div class="slicer">
+        <div class="slicer-label">Churn Status</div>
+        <div class="chip-group" id="slicer-churn"></div>
+      </div>
+      <button class="slicer-reset" id="btnReset">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg>
+        Reset Filters
+      </button>
+    </div>
+
+    <!-- ============ KPI ROW ============ -->
+    <div class="kpi-grid" id="kpiGrid"></div>
+
+    <main>
+      <!-- ---------- OVERVIEW ---------- -->
+      <section class="page active" id="page-overview">
+        <div class="section-title">Market Overview</div>
+        <div class="chart-grid">
+          <div class="chart-card">
+            <div class="cc-head">
+              <div><div class="cc-title">Churn by Contract Type</div><div class="cc-sub">Share of customers &amp; churners per contract</div></div>
+              <span class="cc-badge">Donut · Legend</span>
+            </div>
+            <div class="chart-body"><canvas id="chartContractDonut"></canvas></div>
+          </div>
+          <div class="chart-card">
+            <div class="cc-head">
+              <div><div class="cc-title">Churn Rate by Tenure</div><div class="cc-sub">Early vs loyal customers</div></div>
+              <span class="cc-badge">Hover for values</span>
+            </div>
+            <div class="chart-body"><canvas id="chartTenureBar"></canvas></div>
+          </div>
+          <div class="chart-card">
+            <div class="cc-head">
+              <div><div class="cc-title">Churn Rate by Payment Method</div><div class="cc-sub">Billing behaviour vs retention</div></div>
+              <span class="cc-badge">Hover for values</span>
+            </div>
+            <div class="chart-body"><canvas id="chartPayBar"></canvas></div>
+          </div>
+          <div class="chart-card">
+            <div class="cc-head">
+              <div><div class="cc-title">Average Monthly Charge by Tenure</div><div class="cc-sub">Revenue trajectory of the base</div></div>
+              <span class="cc-badge">Hover for values</span>
+            </div>
+            <div class="chart-body"><canvas id="chartMonthlyLine"></canvas></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ---------- CHURN ---------- -->
+      <section class="page" id="page-churn">
+        <div class="section-title">Churn Analysis</div>
+        <div class="chart-grid">
+          <div class="chart-card">
+            <div class="cc-head">
+              <div><div class="cc-title">Churn Status</div><div class="cc-sub">Active vs churned customers</div></div>
+              <span class="cc-badge">Donut · Legend</span>
+            </div>
+            <div class="chart-body sm"><canvas id="chartStatusDonut"></canvas></div>
+          </div>
+          <div class="chart-card">
+            <div class="cc-head">
+              <div><div class="cc-title">Internet Service Mix</div><div class="cc-sub">Plan type distribution</div></div>
+              <span class="cc-badge">Donut · Legend</span>
+            </div>
+            <div class="chart-body sm"><canvas id="chartInternetDonut"></canvas></div>
+          </div>
+          <div class="chart-card">
+            <div class="cc-head">
+              <div><div class="cc-title">Top Churn Reasons</div><div class="cc-sub">Why customers leave</div></div>
+              <span class="cc-badge">Hover for values</span>
+            </div>
+            <div class="chart-body"><canvas id="chartReasonBar"></canvas></div>
+          </div>
+          <div class="chart-card">
+            <div class="cc-head">
+              <div><div class="cc-title">Churn Score Distribution</div><div class="cc-sub">Model score bands (0-100)</div></div>
+              <span class="cc-badge">Hover for values</span>
+            </div>
+            <div class="chart-body"><canvas id="chartScoreHist"></canvas></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ---------- SERVICES ---------- -->
+      <section class="page" id="page-services">
+        <div class="section-title">Services &amp; Adoption</div>
+        <div class="chart-grid">
+          <div class="chart-card">
+            <div class="cc-head">
+              <div><div class="cc-title">Service Adoption</div><div class="cc-sub">Subscribers per service</div></div>
+              <span class="cc-badge">Hover for values</span>
+            </div>
+            <div class="chart-body"><canvas id="chartServiceAdopt"></canvas></div>
+          </div>
+          <div class="chart-card">
+            <div class="cc-head">
+              <div><div class="cc-title">Churn Rate by Service</div><div class="cc-sub">Which services retain best</div></div>
+              <span class="cc-badge">Hover for values</span>
+            </div>
+            <div class="chart-body"><canvas id="chartServiceChurn"></canvas></div>
+          </div>
+          <div class="chart-card">
+            <div class="cc-head">
+              <div><div class="cc-title">Service Categories</div><div class="cc-sub">Phone / Internet / Add-ons / Streaming</div></div>
+              <span class="cc-badge">Donut · Legend</span>
+            </div>
+            <div class="chart-body sm"><canvas id="chartServiceCat"></canvas></div>
+          </div>
+          <div class="chart-card">
+            <div class="cc-head">
+              <div><div class="cc-title">Add-on Adoption by Contract</div><div class="cc-sub">Avg add-on count per contract</div></div>
+              <span class="cc-badge">Hover for values</span>
+            </div>
+            <div class="chart-body"><canvas id="chartAddonByContract"></canvas></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ---------- REVENUE ---------- -->
+      <section class="page" id="page-revenue">
+        <div class="section-title">Revenue &amp; CLTV</div>
+        <div class="chart-grid">
+          <div class="chart-card">
+            <div class="cc-head">
+              <div><div class="cc-title">Revenue by Contract</div><div class="cc-sub">Sum of monthly charges</div></div>
+              <span class="cc-badge">Hover for values</span>
+            </div>
+            <div class="chart-body"><canvas id="chartRevenueContract"></canvas></div>
+          </div>
+          <div class="chart-card">
+            <div class="cc-head">
+              <div><div class="cc-title">Average CLTV by Tenure</div><div class="cc-sub">Lifetime value over time</div></div>
+              <span class="cc-badge">Hover for values</span>
+            </div>
+            <div class="chart-body"><canvas id="chartCltvBar"></canvas></div>
+          </div>
+          <div class="chart-card">
+            <div class="cc-head">
+              <div><div class="cc-title">Monthly Charge Trajectory</div><div class="cc-sub">Active vs churned by tenure</div></div>
+              <span class="cc-badge">Hover for values</span>
+            </div>
+            <div class="chart-body"><canvas id="chartTrajectory"></canvas></div>
+          </div>
+          <div class="chart-card">
+            <div class="cc-head">
+              <div><div class="cc-title">Payment Method Mix</div><div class="cc-sub">Billing channel share</div></div>
+              <span class="cc-badge">Donut · Legend</span>
+            </div>
+            <div class="chart-body sm"><canvas id="chartPayMix"></canvas></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ---------- GEOGRAPHY ---------- -->
+      <section class="page" id="page-geography">
+        <div class="section-title">Geographic Analysis · California Field Map</div>
+        <div class="geo-grid">
+          <div class="chart-card">
+            <div class="cc-head">
+              <div><div class="cc-title">Churn Field Map</div><div class="cc-sub">Circle size = customers · Color = churn rate</div></div>
+              <span class="cc-badge">Interactive · Click markers</span>
+            </div>
+            <div id="geoMap" class="geo-map"></div>
+            <div class="geo-legend" id="geoLegend"></div>
+          </div>
+          <div class="geo-side">
+            <div class="chart-card">
+              <div class="cc-head">
+                <div><div class="cc-title">Churn Rate by City</div><div class="cc-sub">Top cities by customer count</div></div>
+                <span class="cc-badge">Hover for values</span>
+              </div>
+              <div class="chart-body"><canvas id="chartCityBar"></canvas></div>
+            </div>
+            <div class="chart-card">
+              <div class="cc-head">
+                <div><div class="cc-title">Customer Density by Zip</div><div class="cc-sub">Top zip codes by concentration</div></div>
+                <span class="cc-badge">Hover for values</span>
+              </div>
+              <div class="chart-body"><canvas id="chartZipBar"></canvas></div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="app-footer">
+      <span><span class="live-dot"></span>Customer 360 · Churn Intelligence &nbsp;·&nbsp; Powered by the Medallion architecture on SQL Server · Chart.js</span>
+    </footer>
+  </div>
+
+  <!-- ============ Q&A MODAL ============ -->
+  <div class="modal-overlay" id="qaModal">
+    <div class="modal">
+      <h3>Ask your data</h3>
+      <div class="modal-sub">Query the customer base — answers are computed live from the filtered dataset.</div>
+      <div class="qa-search">
+        <input type="text" id="qaInput" placeholder="e.g. What is the overall churn rate?">
+        <button id="qaAsk">Ask</button>
+      </div>
+      <div class="qa-suggest" id="qaSuggest"></div>
+      <div class="qa-answer" id="qaAnswer"></div>
+    </div>
+  </div>
+
+  <div class="toast-wrap" id="toastWrap"></div>
+
+  <script src="data.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
