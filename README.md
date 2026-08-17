@@ -50,7 +50,7 @@ Real captures from the running dashboard (original files preserved in `Dashboard
 | ![Dark view 1](Dashboard%20Images/1.1.jpg) | ![Dark view 2](Dashboard%20Images/2.1.jpg) | ![Dark view 3](Dashboard%20Images/6.jpg) | ![Dark view 4](Dashboard%20Images/7.jpg) |
 | ![Dark view 5](Dashboard%20Images/8.jpg) | ![Dark view 6](Dashboard%20Images/9.jpg) | ![Dark view 7](Dashboard%20Images/10.jpg) | ![Geography page · dark](Dashboard%20Images/Customer_Churn_360%20Dark%20Theme%20Geograpy%20page.jpg) |
 
-**Apple-style Light theme**
+**Light theme**
 
 | | | | |
 |---|---|---|---|
@@ -221,7 +221,7 @@ Churn360/
 
 ---
 
-## 🧠 Key Business Insights (computed from the model)
+##  Key Business Insights (computed from the model)
 
 - **26.54%** overall churn — **1,869 of 7,043** customers.
 - **Contract is the #1 churn driver**: Month-to-month churns at **42.7%** vs **11.3%** (One year) and **2.8%** (Two year).
@@ -327,7 +327,7 @@ python -m http.server 8899 --directory dashboard
 
 Found a bug or want a new page? Open an issue or a PR — the pipeline is designed to be extended one layer at a time.
 
-## 📄 License
+##  License
 
 [MIT](LICENSE) © 2026 Himanshu Upadhyay
 
