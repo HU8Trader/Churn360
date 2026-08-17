@@ -39,6 +39,26 @@ Every layer is fully documented, **idempotent**, and reproducible — designed l
 
 ---
 
+##  Screenshots
+
+Real captures from the running dashboard (original files preserved in `Dashboard Images/`).
+
+**Holographic Dark theme**
+
+| | | | |
+|---|---|---|---|
+| ![Dark view 1](Dashboard%20Images/1.1.jpg) | ![Dark view 2](Dashboard%20Images/2.1.jpg) | ![Dark view 3](Dashboard%20Images/6.jpg) | ![Dark view 4](Dashboard%20Images/7.jpg) |
+| ![Dark view 5](Dashboard%20Images/8.jpg) | ![Dark view 6](Dashboard%20Images/9.jpg) | ![Dark view 7](Dashboard%20Images/10.jpg) | ![Geography page · dark](Dashboard%20Images/Customer_Churn_360%20Dark%20Theme%20Geograpy%20page.jpg) |
+
+**Apple-style Light theme**
+
+| | | | |
+|---|---|---|---|
+| ![Light view 1](Dashboard%20Images/1.jpg) | ![Light view 2](Dashboard%20Images/2.jpg) | ![Light view 3](Dashboard%20Images/4.jpg) | ![Light view 4](Dashboard%20Images/5.jpg) |
+| ![Light view 5](Dashboard%20Images/Customer_Churn_360%20Light%20Theme.jpg) | | | |
+
+---
+
 ##  Architecture
 
 ```mermaid
