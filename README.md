@@ -321,6 +321,8 @@ python -m http.server 8899 --directory dashboard
 - [ ] CI for the pipeline (SQL unit tests + lint)
 - [ ] Deployment: Azure SQL + static hosting
 
+> As the warehouse scales, the visualization layer will migrate from the custom web dashboard to an enterprise BI platform (Power BI / Tableau) connected live to the gold layer. New data entering from operational source systems such as CRM and ERP is ingested on incremental load schedules and flows through the medallion pipeline (bronze → silver → gold). The BI layer then refreshes automatically, keeping churn rates, revenue-at-risk, and customer-segmentation views current without manual effort — delivering near-real-time visibility into customer churn as data volumes grow.
+
 ---
 
 ##  Contributing
