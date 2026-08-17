@@ -31,9 +31,9 @@ Every layer is fully documented, **idempotent**, and reproducible — designed l
 
 ##  Dashboard
 
-| Holographic Dark | Apple-style Light | Geography Field-Map |
+| Holographic Dark | Geography Field-Map |
 |:---:|:---:|:---:|
-| ![Dark](assets/dashboard-dark.png) | ![Light](assets/dashboard-light.png) | ![Map](assets/dashboard-map.png) |
+| ![Dark](assets/dashboard-dark.png) | ![Map](assets/dashboard-map.png) |
 
 > Charts, legends, gridlines and text **auto-contrast with the theme** — light-on-dark in holographic mode, dark-on-light in Apple mode.
 
