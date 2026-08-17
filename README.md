@@ -16,7 +16,7 @@ _Analyze churn · Pinpoint risk · Save revenue_
 
 ---
 
-## 📊 Overview
+##  Overview
 
 **Churn360** is an end-to-end analytics project that answers a classic business question — **"Why do our customers leave, who is at risk, and what is that costing us?"** — by taking raw Telco subscriber data and pushing it all the way through a production-grade analytical stack:
 
@@ -29,7 +29,7 @@ Every layer is fully documented, **idempotent**, and reproducible — designed l
 
 ---
 
-## 🖼️ Dashboard
+##  Dashboard
 
 | Holographic Dark | Apple-style Light | Geography Field-Map |
 |:---:|:---:|:---:|
@@ -39,7 +39,7 @@ Every layer is fully documented, **idempotent**, and reproducible — designed l
 
 ---
 
-## 🏗️ Architecture
+##  Architecture
 
 ```mermaid
 flowchart LR
@@ -120,7 +120,7 @@ erDiagram
 
 ---
 
-## 🧰 Tech Stack
+##  Tech Stack
 
 | Layer | Technology |
 |---|---|
@@ -134,7 +134,7 @@ erDiagram
 
 ---
 
-## 📁 Repository Structure
+##  Repository Structure
 
 ```
 Churn360/
@@ -163,7 +163,7 @@ Churn360/
 
 ---
 
-## 🔄 The Pipeline: SQL Server → Interactive Dashboard
+##  The Pipeline: SQL Server → Interactive Dashboard
 
 ### Step 1 — Land the raw source (Bronze)
 
@@ -193,7 +193,7 @@ Churn360/
 | `fact_churn` | 7,043 | subscription snapshot + churn outcome |
 | `fact_customer_service` | 29,202 | **factless fact** — subscription matrix |
 
-> ⚠️ Facts take a few minutes to load — the PowerShell loaders set `CommandTimeout = 300` and the SQL runs are split so nothing times out.
+>  Facts take a few minutes to load — the PowerShell loaders set `CommandTimeout = 300` and the SQL runs are split so nothing times out.
 
 ### Step 4 — Feed the dashboard
 
@@ -214,7 +214,7 @@ Churn360/
 
 ---
 
-## 🗂️ Page-Specific KPIs
+##  Page-Specific KPIs
 
 Each dashboard page surfaces **business KPIs tuned to that page's focus** (computed live against the filtered set):
 
@@ -228,7 +228,7 @@ Each dashboard page surfaces **business KPIs tuned to that page's focus** (compu
 
 ---
 
-## 🚀 Getting Started
+##  Getting Started
 
 ### Prerequisites
 - **Microsoft SQL Server** (any 2016+ edition; Windows Auth on `localhost`)
@@ -266,7 +266,7 @@ python -m http.server 8899 --directory dashboard
 
 ---
 
-## 🧭 Interactivity
+##  Interactivity
 
 - **6 cross-filter slicers** — Gender · Contract · Internet Service · Payment Method · Tenure · Churn Status — every chart, KPI and the map re-aggregate live.
 - **5 pages** with their own charts + KPIs.
@@ -277,7 +277,7 @@ python -m http.server 8899 --directory dashboard
 
 ---
 
-## 🎯 Design Decisions & Trade-offs
+##  Design Decisions & Trade-offs
 
 | Decision | Why |
 |---|---|
@@ -291,7 +291,7 @@ python -m http.server 8899 --directory dashboard
 
 ---
 
-## 🛣️ Roadmap
+##  Roadmap
 
 - [x] Medallion warehouse + reproducible ETL
 - [x] Interactive dashboard with 5 pages & dual themes
@@ -303,7 +303,7 @@ python -m http.server 8899 --directory dashboard
 
 ---
 
-## 🤝 Contributing
+##  Contributing
 
 Found a bug or want a new page? Open an issue or a PR — the pipeline is designed to be extended one layer at a time.
 
